@@ -24,10 +24,10 @@ impl FPS {
     pub fn wait_for_fps(&self, expected_fps: u128) -> Result<u64, Box<dyn Error>> {
         let now = Self::now_millis()?;
         let dif = now - self.prev_time;
-        if expected_fps>0 && dif > expected_fps/1000 {
+        if expected_fps>0 && dif > 1000/expected_fps {
             Ok(0)
         }else{
-            Ok(dif as u64)
+            Ok(1000/expected_fps as u64)
         }
     }
 
