@@ -1,4 +1,11 @@
+# RAT-FPS
 
+### Description:
+A Widget for use with Ratatui to display FPS
+
+## Example Usage:
+
+```rust
 use std::{error::Error, time::Duration};
 
 use rat_fps::FPS;
@@ -14,7 +21,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             f.render_widget(&mut fps, f.area());
         })?;
 
-        if crossterm::event::poll(Duration::from_millis(fps.wait_for_fps(120)?))? {
+        if crossterm::event::poll(Duration::from_millis(fps.wait_for_fps(1000)?))? {
             if let Event::Key(KeyEvent{ 
                 code: KeyCode::Char('q'), ..}) = crossterm::event::read()? {
                 keep_running = false;
@@ -25,3 +32,4 @@ fn main() -> Result<(), Box<dyn Error>> {
     ratatui::restore();
     Ok(())
 }
+```

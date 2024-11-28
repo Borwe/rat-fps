@@ -2,12 +2,15 @@ use std::{error::Error, fmt::Write, time::{SystemTime, UNIX_EPOCH}};
 
 use ratatui::{style::Stylize, widgets::{Block, Paragraph, Widget}};
 
+/// Note: This implements the widget using the mutable reference,
+/// so when rendering one must pass a mut reference to this object
 pub struct FPS {
     prev_time: u128,
     fps_text: String
 }
 
 impl FPS {
+    /// Create new widget
     pub fn new() -> Result<Self, Box<dyn Error>>{
         Ok(Self{
             prev_time: FPS::now_millis()?,
@@ -15,6 +18,9 @@ impl FPS {
         })
     }
 
+    /// get time to wait for in poll for example with crosster::event::poll,
+    /// it is in milliseconds, calculated from using the @expected_fps
+    /// field value
     pub fn wait_for_fps(&self, expected_fps: u128) -> Result<u64, Box<dyn Error>> {
         let now = Self::now_millis()?;
         let dif = now - self.prev_time;
@@ -44,6 +50,7 @@ impl FPS {
     }
 }
 
+/// Implements Widget on mutable reference
 impl Widget for &mut FPS {
     fn render(self,
         area: ratatui::prelude::Rect,
