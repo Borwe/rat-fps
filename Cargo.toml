@@ -3,6 +3,7 @@ name = "rat-fps"
 version = "0.1.0"
 edition = "2021"
 description = "Widget to show FPS in ratatui"
+license = "MIT"
 
 [dependencies]
 ratatui = "0.29.0"
