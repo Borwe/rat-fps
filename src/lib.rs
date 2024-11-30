@@ -42,7 +42,7 @@ impl FPS {
         self.prev_time = now;
         let mut fps = 1;
         if time_passed >0 {
-            fps = 1000/time_passed;
+            fps = ((1000/time_passed) / 10) * 10;
         }
         self.fps_text.clear();
         write!(&mut self.fps_text, "{} FPS", fps)?;

@@ -10,16 +10,18 @@ fn main() -> Result<(), Box<dyn Error>> {
     let mut fps = FPS::new()?;
 
     while keep_running {
+
         term.draw(|f|{
             f.render_widget(&mut fps, f.area());
         })?;
 
-        if crossterm::event::poll(Duration::from_millis(fps.wait_for_fps(160)?))? {
+        if crossterm::event::poll(Duration::from_millis(fps.wait_for_fps(420)?))? {
             if let Event::Key(KeyEvent{ 
                 code: KeyCode::Char('q'), ..}) = crossterm::event::read()? {
                 keep_running = false;
             }
         }
+
     }
 
     ratatui::restore();
